@@ -1,1 +1,40 @@
+esphome:
+  name: rack-sensor
+  friendly_name: Rack Sensor
 
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  ap:
+    ssid: "Rack Sensor Fallback"
+    password: "fallbackpassword"
+
+captive_portal:
+
+logger:
+
+api:
+
+ota:
+  platform: esphome
+
+i2c:
+  sda: GPIO21
+  scl: GPIO22
+  scan: true
+
+sensor:
+  - platform: sht4x
+    temperature:
+      name: "Rack Temperature"
+      id: rack_temperature
+    humidity:
+      name: "Rack Humidity"
+      id: rack_humidity
+    update_interval: 30s
