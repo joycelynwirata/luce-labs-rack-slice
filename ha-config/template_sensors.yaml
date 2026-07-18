@@ -1,1 +1,13 @@
+template:
+  - sensor:
+      - name: "Rack VPD"
+        unique_id: rack_vpd
+        unit_of_measurement: "kPa"
+        state_class: measurement
 
+        state: >
+          {% set T = states('sensor.rack_temperature') | float %}
+          {% set RH = states('sensor.rack_humidity') | float %}
+          {% set svp = 0.6108 * (2.718281828 ** ((17.27 * T) / (T + 237.3))) %}
+          {% set vpd = svp * (1 - RH / 100) %}
+          {{ vpd | round(2) }}
