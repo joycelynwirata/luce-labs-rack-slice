@@ -1,1 +1,44 @@
+# Turn fan ON when VPD is high
 
+- alias: "Rack Fan - Turn ON"
+  description: "Turn on exhaust fan when VPD exceeds threshold."
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.rack_vpd
+      above: 1.2
+      for: "00:05:00"
+
+  condition:
+    - condition: state
+      entity_id: switch.rack_fan
+      state: "off"
+
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.rack_fan
+
+  mode: single
+
+
+# Turn fan OFF when VPD returns to normal
+
+- alias: "Rack Fan - Turn OFF"
+  description: "Turn off exhaust fan when VPD falls below threshold."
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.rack_vpd
+      below: 1.0
+      for: "00:10:00"
+
+  condition:
+    - condition: state
+      entity_id: switch.rack_fan
+      state: "on"
+
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.rack_fan
+
+  mode: single
