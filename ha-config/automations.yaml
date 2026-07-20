@@ -1,3 +1,7 @@
+# Hysteresis:
+# Fan turns ON at VPD > 1.2 kPa for 5 minutes.
+# Fan turns OFF at VPD < 1.0 kPa for 10 minutes.
+
 # Turn fan ON when VPD is high
 
 - alias: "Rack Fan - Turn ON"
