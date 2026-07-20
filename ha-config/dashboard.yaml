@@ -1,0 +1,38 @@
+title: Growing Rack
+views:
+  - title: Rack Dashboard
+    path: default_view
+    cards:
+
+      - type: entities
+        title: Environmental Conditions
+        entities:
+          - sensor.rack_temperature
+          - sensor.rack_humidity
+          - sensor.rack_vpd
+
+      - type: entities
+        title: Exhaust Fan
+        entities:
+          - switch.rack_fan
+          - sensor.rack_fan_power
+          - sensor.rack_fan_energy
+
+      - type: entities
+        title: System Health
+        entities:
+          - binary_sensor.rack_sensor_status
+
+      - type: history-graph
+        title: Environmental History
+        hours_to_show: 24
+        entities:
+          - sensor.rack_temperature
+          - sensor.rack_humidity
+          - sensor.rack_vpd
+
+      - type: history-graph
+        title: Fan Power
+        hours_to_show: 24
+        entities:
+          - sensor.rack_fan_power
